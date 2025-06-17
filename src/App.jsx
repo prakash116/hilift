@@ -20,7 +20,6 @@ import { Routes, Route, useLocation, HashRouter } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import EmployeeLogin from "./Components/Employee/EmployeeLogin";
 import EmployeeDashboard from "./Components/Employee/EmployeeDashboard";
-import Sidebar from "./Components/MobileSidebar";
 import FloatingPhoneIcon from "./Components/FloatingPhoneIcon ";
 
 // Scroll to top component
@@ -35,34 +34,18 @@ function ScrollToTop() {
 }
 
 function App() {
-  const [isSticky, setIsSticky] = useState(false);
-  const [animate, setAnimate] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 200) {
-        if (!isSticky) {
-          setAnimate(true);
-        }
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-        setAnimate(false);
-      }
-    };
-
     // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
 
-    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       clearTimeout(timer);
     };
-  }, [isSticky]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -93,45 +76,32 @@ function App() {
       <HashRouter>
         <ScrollToTop />
         <AnimatePresence>
-          <motion.div
-            key="pre-header"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <PreHeader />
-          </motion.div>
-          
-          {/* Sticky Header with smooth transitions */}
-          <motion.div
-            key="header-container"
-            className={`w-full z-50 ${
-              isSticky 
-                ? "fixed top-0 left-0 right-0 shadow-lg bg-white/90 backdrop-blur-md"
-                : "relative bg-transparent"
-            }`}
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
+          {/* Fixed Header Container */}
+          <div className="fixed top-0 left-0 right-0 z-50">
+            {/* PreHeader - only shown on larger screens */}
             <motion.div
-              key="header-content"
-              className={animate ? "animate-slide-down" : ""}
-              whileHover={{ scale: 1.01 }}
+              key="pre-header"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="hidden md:block bg-white shadow-md"
             >
-              <Header />
+              <PreHeader />
             </motion.div>
-          </motion.div>
-
-          <Sidebar key="mobile-sidebar"/>
+            
+            {/* Header - shown on all devices */}
+            <div className="bg-white shadow-md">
+              <Header />
+            </div>
+          </div>
           
-          {/* Main content with subtle entrance animation */}
+          {/* Main content with padding to account for fixed header */}
           <motion.main
             key="main-content"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex-grow"
+            className="flex-grow pt-15 md:pt-20" // Adjusted padding for mobile and desktop
           >
             <Routes>
               <Route path="/" element={

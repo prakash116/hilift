@@ -180,6 +180,7 @@ const Elevator = () => {
       ],
     },
   ];
+  
   const toggleExpand = (id) => {
     setExpandedCard(expandedCard === id ? null : id);
   };

@@ -9,9 +9,9 @@ const FloatingPhoneIcon = () => {
   const [isRinging, setIsRinging] = useState(false);
 
   const supportOptions = [
-    { icon: <RiCustomerService2Fill />, label: 'Sales', number: '8795901180' },
-    { icon: <RiCustomerService2Fill />, label: 'Support', number: '8795901183' },
-    { icon: <RiCustomerService2Fill />, label: 'Emergency', number: '9876543210' }
+    { label: 'Sales', number: '8795901180' },
+    { label: 'Support', number: '8795901183' },
+    { label: 'Emergency', number: '9876543210' }
   ];
 
   const ringAnimation = {
@@ -54,9 +54,9 @@ const FloatingPhoneIcon = () => {
                   whileHover={{ x: -5 }}
                   className="flex items-center py-2 px-3 mb-2 rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <span className="text-green-600 mr-3 text-lg">{option.icon}</span>
+                  <span className="text-green-600 mr-3 text-lg"><RiCustomerService2Fill /></span>
                   <div className="flex-1">
-                    <p className="font-medium">{option.label}</p>
+                    <p className="font-medium text-black">{option.label}</p>
                     <p className="text-sm text-gray-600">{option.number}</p>
                   </div>
                 </motion.a>

@@ -5,10 +5,9 @@ import {
   BsTwitterX,
   BsEnvelopeFill,
   BsTelephoneFill,
-  BsGeoAltFill,
 } from "react-icons/bs";
 import { FiInstagram, FiFacebook, FiLinkedin, FiYoutube } from "react-icons/fi";
-import { FaWhatsapp, FaMapMarkerAlt, FaRegClock } from "react-icons/fa";
+import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
 
 function Footer() {
   const [ref, inView] = useInView({
@@ -101,7 +100,7 @@ function Footer() {
             <motion.div variants={itemVariants} className="space-y-6">
               <div className="flex items-center">
                 <img
-                  src="/Images/Hi-Lift_logo.png"
+                  src="/hilift/Images/Hi-Lift_logo.png"
                   alt="Hi-Lift Logo"
                   className="h-10 w-auto mr-3 drop-shadow-sm dark:drop-shadow-white transition-transform duration-300 hover:scale-105"
                 />

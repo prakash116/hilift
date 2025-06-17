@@ -44,6 +44,15 @@ function PreHeader() {
     },
   };
 
+  const preHeader = {
+  name: "Employee",
+  route1: "About",
+  route2: "Gallery",
+  note: "✨ Special offer: Get 15% off on annual maintenance contracts this month! ✨ &nbsp;&nbsp;|&nbsp;&nbsp; 🚀 New elevator models now available with smart technology! 🚀 &nbsp;&nbsp;|&nbsp;&nbsp; ⏰ 24/7 emergency service available ⏰",
+  contact: "8795901180, 8795901183", // Fixed typo (was "contect")
+  email: "prakashmanig000@gmail.com"
+};
+
   // Custom MotionNavLink component
   const MotionNavLink = ({ to, children, className, isActive }) => (
     <motion.div
@@ -80,7 +89,7 @@ function PreHeader() {
               }`
             }
           >
-            Employee
+            {preHeader.name}
           </MotionNavLink>
           <MotionNavLink
             to="/about"
@@ -90,7 +99,7 @@ function PreHeader() {
               }`
             }
           >
-            About Us
+           {preHeader.route1}
           </MotionNavLink>
           <MotionNavLink
             to="/gallery"
@@ -100,7 +109,7 @@ function PreHeader() {
               }`
             }
           >
-            Gallery
+           {preHeader.route2}
           </MotionNavLink>
         </motion.div>
 
@@ -115,10 +124,7 @@ function PreHeader() {
             className="whitespace-nowrap"
           >
             <p className="inline-block">
-              ✨ Special offer: Get 15% off on annual maintenance contracts this
-              month! ✨ &nbsp;&nbsp;|&nbsp;&nbsp; 🚀 New elevator models now
-              available with smart technology! 🚀 &nbsp;&nbsp;|&nbsp;&nbsp; ⏰
-              24/7 emergency service available ⏰
+              {preHeader.note}
             </p>
           </motion.div>
         </motion.div>
@@ -134,7 +140,7 @@ function PreHeader() {
           >
             Any Query:{" "}
             <span className="font-semibold text-indigo-950 hover:text-blue-600 cursor-pointer">
-              8795901180, 8795901183
+              {preHeader.contact}
             </span>
           </motion.span>
           <motion.span
@@ -143,7 +149,7 @@ function PreHeader() {
           >
             Email:{" "}
             <span className="font-semibold text-indigo-950 hover:text-blue-600 cursor-pointer">
-              prakashmanig000@gmail.com
+              {preHeader.email}
             </span>
           </motion.span>
         </motion.div>

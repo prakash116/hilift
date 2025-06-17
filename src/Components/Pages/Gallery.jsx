@@ -8,7 +8,7 @@ const ElevatorGallery = () => {
       id: 1,
       title: "Modern Passenger Elevator",
       category: "Commercial",
-      image: "/Images/gallery/passenger-elevator.jpg",
+      image: "/hilift/Images/1342.jpg",
       description:
         "Sleek design with energy-efficient technology for high-traffic buildings",
     },
