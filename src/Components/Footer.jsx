@@ -98,7 +98,7 @@ function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             {/* Company Info */}
             <motion.div variants={itemVariants} className="space-y-6">
-              <div className="flex items-center">
+              <div className="flex items-center justify-center md:justify-start">
                 <img
                   src="/hilift/Images/Hi-Lift_logo.png"
                   alt="Hi-Lift Logo"
@@ -140,7 +140,7 @@ function Footer() {
               <h3 className="text-lg font-bold text-black uppercase tracking-wider">
                 Quick Links
               </h3>
-              <ul className="space-y-3 grid grid-cols-2 md:grid-cols-1">
+              <ul className="space-y-3 pl-4 grid grid-cols-2 md:grid-cols-1">
                 {quickLinks.map((link, index) => (
                   <motion.li
                     key={index}
@@ -164,7 +164,7 @@ function Footer() {
               <h3 className="text-lg font-bold text-black uppercase tracking-wider">
                 Our Services
               </h3>
-              <ul className="space-y-3 grid grid-cols-2 md:grid-cols-1">
+              <ul className="space-y-3 grid grid-cols-2 pl-4 md:grid-cols-1">
                 {services.map((service, index) => (
                   <motion.li
                     key={index}
@@ -194,11 +194,11 @@ function Footer() {
 
              
 
-              <div className="pt-4">
-                <h4 className="text-lg font-bold text-black uppercase tracking-wider mb-3">
+              <div className="pt-4 border-t-1 md:border-0">
+                <h2 className="text-lg font-bold text-black uppercase tracking-wider mb-3">
                   Follow Us
-                </h4>
-                <div className="flex flex-wrap gap-3">
+                </h2>
+                <div className="flex flex-wrap justify-center md:justify-start gap-3">
                   {socialLinks.map((social, index) => (
                     <motion.a
                       key={index}
