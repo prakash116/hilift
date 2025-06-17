@@ -1,8 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import "./App.css";
-import React from "react";
 import Header from "./Components/Header";
-import PreHeader from "./Components/PreHeader";
 import Footer from "./Components/Footer";
 import Home from "./Components/Pages/Home";
 import { useState, useEffect } from "react";
@@ -18,8 +16,6 @@ import LandingPage from "./Components/Pages/LandingPage";
 import ElevatorGallery from "./Components/Pages/Gallery";
 import { Routes, Route, useLocation, HashRouter } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import EmployeeLogin from "./Components/Employee/EmployeeLogin";
-import EmployeeDashboard from "./Components/Employee/EmployeeDashboard";
 import FloatingPhoneIcon from "./Components/FloatingPhoneIcon ";
 
 // Scroll to top component
@@ -78,17 +74,6 @@ function App() {
         <AnimatePresence>
           {/* Fixed Header Container */}
           <div className="fixed top-0 left-0 right-0 z-50">
-            {/* PreHeader - only shown on larger screens */}
-            <motion.div
-              key="pre-header"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="hidden md:block bg-white shadow-md"
-            >
-              <PreHeader />
-            </motion.div>
-            
             {/* Header - shown on all devices */}
             <div className="bg-white shadow-md">
               <Header />
@@ -101,7 +86,7 @@ function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex-grow pt-15 md:pt-20" // Adjusted padding for mobile and desktop
+            className="flex-grow pt-10 md:pt-15 " // Adjusted padding for mobile and desktop
           >
             <Routes>
               <Route path="/" element={
@@ -199,26 +184,6 @@ function App() {
                   transition={{ duration: 0.7 }}
                 >
                   <ElevatorGallery />
-                </motion.div>
-              } />
-              <Route path="/employee/login" element={
-                <motion.div
-                  key="employee-login"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <EmployeeLogin/>
-                </motion.div>
-              } />
-              <Route path="/employee/dashboard" element={
-                <motion.div
-                  key="employee-dashboard"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <EmployeeDashboard/>
                 </motion.div>
               } />
             </Routes>

@@ -67,13 +67,13 @@ function Footer() {
   ];
 
   return (
-    <div ref={ref} className="bg-gray-900 text-gray-200">
+    <div ref={ref} className="bg-base-content text-gray-700">
       {/* Wave Divider */}
       <div className="w-full overflow-hidden">
         <svg
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
-          className="fill-current text-gray-900 w-full h-16"
+          className="fill-current w-full h-16"
         >
           <path
             d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
@@ -105,30 +105,30 @@ function Footer() {
                   className="h-10 w-auto mr-3 drop-shadow-sm dark:drop-shadow-white transition-transform duration-300 hover:scale-105"
                 />
               </div>
-              <p className="text-gray-400">
+              <p className="">
                 Elevating your experience with premium lift solutions across
                 India.
               </p>
 
-              <div className="space-y-3">
+              <div className="space-y-3 grid grid-cols-2 md:grid-cols-1">
                 <div className="flex items-start space-x-3">
-                  <BsTelephoneFill className="flex-shrink-0 mt-1 text-blue-400" />
+                  <BsTelephoneFill className="flex-shrink-0 mt-1 text-blue-500" />
                   <div>
-                    <p className="text-gray-400">24/7 Support</p>
+                    <p className="text-gray-900">24/7 Support</p>
                     <p className="font-medium">+91 98765 43210</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <BsEnvelopeFill className="flex-shrink-0 mt-1 text-blue-400" />
                   <div>
-                    <p className="text-gray-400">Email Us</p>
+                    <p className="text-gray-900">Email Us</p>
                     <p className="font-medium">info@hi-lift.com</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <FaMapMarkerAlt className="flex-shrink-0 mt-1 text-blue-400" />
                   <div>
-                    <p className="text-gray-400">Headquarters</p>
+                    <p className="text-gray-900">Headquarters</p>
                     <p className="font-medium">Mumbai, India</p>
                   </div>
                 </div>
@@ -137,10 +137,10 @@ function Footer() {
 
             {/* Quick Links */}
             <motion.div variants={itemVariants} className="space-y-6">
-              <h3 className="text-lg font-bold text-white uppercase tracking-wider">
+              <h3 className="text-lg font-bold text-black uppercase tracking-wider">
                 Quick Links
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-3 grid grid-cols-2 md:grid-cols-1">
                 {quickLinks.map((link, index) => (
                   <motion.li
                     key={index}
@@ -149,7 +149,7 @@ function Footer() {
                   >
                     <a
                       href={link.url}
-                      className="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center"
+                      className="text-gray-900 hover:text-blue-400 transition-colors duration-300 flex items-center"
                     >
                       <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
                       {link.name}
@@ -161,10 +161,10 @@ function Footer() {
 
             {/* Services */}
             <motion.div variants={itemVariants} className="space-y-6">
-              <h3 className="text-lg font-bold text-white uppercase tracking-wider">
+              <h3 className="text-lg font-bold text-black uppercase tracking-wider">
                 Our Services
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-3 grid grid-cols-2 md:grid-cols-1">
                 {services.map((service, index) => (
                   <motion.li
                     key={index}
@@ -173,7 +173,7 @@ function Footer() {
                   >
                     <a
                       href={service.url}
-                      className="text-gray-400 hover:text-purple-400 transition-colors duration-300 flex items-center"
+                      className="text-gray-900 hover:text-purple-400 transition-colors duration-300 flex items-center"
                     >
                       <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
                       {service.name}
@@ -185,17 +185,17 @@ function Footer() {
 
             {/* Newsletter & Social */}
             <motion.div variants={itemVariants} className="space-y-6">
-              <h3 className="text-lg font-bold text-white uppercase tracking-wider">
+              <h3 className="text-lg font-bold text-black uppercase tracking-wider">
                 Newsletter
               </h3>
-              <p className="text-gray-400">
+              <p className="text-gray-900">
                 Subscribe to get updates on our latest offers and services.
               </p>
 
              
 
               <div className="pt-4">
-                <h4 className="text-lg font-bold text-white uppercase tracking-wider mb-3">
+                <h4 className="text-lg font-bold text-black uppercase tracking-wider mb-3">
                   Follow Us
                 </h4>
                 <div className="flex flex-wrap gap-3">
@@ -204,7 +204,7 @@ function Footer() {
                       key={index}
                       href={social.url}
                       aria-label={social.name}
-                      className="bg-gray-800 hover:bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+                      className="bg-gray-300 hover:bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
                       whileHover={{ y: -3, scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
@@ -229,7 +229,7 @@ function Footer() {
           >
             <motion.p
               variants={itemVariants}
-              className="text-gray-500 text-sm mb-4 md:mb-0"
+              className="text-gray-700 text-sm mb-4 md:mb-0"
             >
               © {new Date().getFullYear()} Hi-Lift. All rights reserved.
             </motion.p>
@@ -237,19 +237,19 @@ function Footer() {
             <motion.div variants={itemVariants} className="flex space-x-6">
               <a
                 href="#"
-                className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-400 text-sm transition-colors duration-300"
               >
                 Privacy Policy
               </a>
               <a
                 href="#"
-                className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-400 text-sm transition-colors duration-300"
               >
                 Terms of Service
               </a>
               <a
                 href="#"
-                className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-400 text-sm transition-colors duration-300"
               >
                 Sitemap
               </a>

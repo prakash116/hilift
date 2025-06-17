@@ -113,7 +113,7 @@ const Main = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-[60vh] md:h-screen overflow-hidden">
       <AnimatePresence custom={direction} initial={false}>
         <motion.div
           key={slides[currentSlide].id}
@@ -168,7 +168,7 @@ const Main = () => {
       {/* Navigation arrows */}
       <motion.button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white p-3 rounded-full z-10"
+        className="absolute left-4 bottom-0 md:bottom-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white p-3 rounded-full z-10"
         whileHover={{ scale: 1.1, backgroundColor: 'rgba(0,0,0,0.5)' }}
         whileTap={{ scale: 0.9 }}
         aria-label="Previous slide"
@@ -179,7 +179,7 @@ const Main = () => {
       </motion.button>
       <motion.button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white p-3 rounded-full z-10"
+        className="absolute right-4 bottom-0 md:bottom-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white p-3 rounded-full z-10"
         whileHover={{ scale: 1.1, backgroundColor: 'rgba(0,0,0,0.5)' }}
         whileTap={{ scale: 0.9 }}
         aria-label="Next slide"

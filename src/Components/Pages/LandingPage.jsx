@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   FiArrowRight,
   FiCheck,
@@ -297,9 +297,9 @@ const LandingPage = () => {
                   </li>
                 ))}
                 <NavLink to="/repair">
-                <button className="w-full bg-yellow-300 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all">
-                  View Plans
-                </button>
+                  <button className="w-full bg-yellow-300 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all">
+                    View Plans
+                  </button>
                 </NavLink>
               </ul>
             </motion.div>
@@ -312,9 +312,12 @@ const LandingPage = () => {
               transition={{ delay: 0.4 }}
               className="relative bg-white text-blue-900 rounded-xl shadow-2xl transform scale-105 z-10"
             >
-              <div className="absolute -top-4 -right-4 bg-yellow-400 text-blue-900 px-3 py-1 rounded-full font-bold text-sm">
+              <div
+                className="absolute bg-yellow-400 text-blue-900 px-3 py-1 rounded-full font-bold text-sm left-1/2 -translate-x-1/2 -top-4 sm:left-auto sm:right-[-14px] sm:translate-x-0"
+              >
                 Most Popular
               </div>
+
               <div className="p-8">
                 <div className="flex items-center mb-6">
                   <div className="bg-blue-600 text-white p-3 rounded-lg mr-4">
@@ -338,9 +341,9 @@ const LandingPage = () => {
                   ))}
                 </ul>
                 <NavLink to="/repair">
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all">
-                  View Plans
-                </button>
+                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all">
+                    View Plans
+                  </button>
                 </NavLink>
               </div>
             </motion.div>
@@ -375,9 +378,9 @@ const LandingPage = () => {
                   </li>
                 ))}
                 <NavLink to="/repair">
-                <button className="w-full bg-yellow-300 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all">
-                  View Plans
-                </button>
+                  <button className="w-full bg-yellow-300 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all">
+                    View Plans
+                  </button>
                 </NavLink>
               </ul>
             </motion.div>
@@ -687,7 +690,7 @@ const LandingPage = () => {
         </div>
       </section>
       <div className="pb-10 px-3">
-      <StatsSection/>
+        <StatsSection />
       </div>
     </div>
   );
