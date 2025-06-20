@@ -128,7 +128,7 @@ const AboutUs = () => {
           className="text-center mb-12 md:mb-16"
         >
           <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl sm:tracking-tight lg:text-5xl">
-            Elevating Standards Since 2010
+            Elevating Standards Since 2012
           </h1>
           <p className="mt-4 max-w-3xl mx-auto text-lg sm:text-xl text-gray-600">
             India's most trusted lift maintenance and repair service with
@@ -150,7 +150,7 @@ const AboutUs = () => {
                 Our Story
               </h2>
               <p className="text-gray-600 mb-4">
-                Founded in 2010 by industry veteran Rajesh Kumar, LiftCare began
+                Founded in 2012 by industry veteran Rajesh Kumar, LiftCare began
                 with a simple mission: to revolutionize elevator maintenance in
                 India through superior service and innovative technology.
               </p>

@@ -224,7 +224,7 @@ const Elevator = () => {
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen py-8">
-      <div className="w-[95%] mx-auto px-4">
+      <div className="w-[95%] mx-auto px-4 pb-5 md:pb-10">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}

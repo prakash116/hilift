@@ -2,29 +2,28 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavLink, Link } from "react-router-dom";
 import { 
-  FiHome, 
-  FiSettings, 
-  FiTool, 
-  FiMail, 
-  FiInfo, 
-  FiUser, 
-  FiLogIn,
-  FiX,
-  FiMenu,
-  FiChevronRight
+  FiHome,
+  FiLayers,
+  FiPackage,
+  FiTool,
+  FiMail,
+  FiInfo,
+  FiAward,
+  FiShield
 } from "react-icons/fi";
+import { FiX, FiMenu, FiChevronRight } from "react-icons/fi";
 
 function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const navItems = [
-    { name: "Home", to: "/home", icon: <FiHome /> },
-    { name: "Lift", to: "/lift", icon: <FiSettings /> },
-    { name: "Accessories", to: "/accessories", icon: <FiTool /> },
-    { name: "Repair & AMC", to: "/repair", icon: <FiTool /> },
-    { name: "Contact Us", to: "/contact", icon: <FiMail /> },
-    { name: "About Us", to: "/about", icon: <FiInfo /> },
+    { name: "Home", to: "/home", icon: <FiHome className="text-blue-300" /> },
+    { name: "Lift", to: "/lift", icon: <FiLayers className="text-blue-300" /> },
+    { name: "Accessories", to: "/accessories", icon: <FiPackage className="text-blue-300" /> },
+    { name: "Repair & AMC", to: "/repair", icon: <FiTool className="text-blue-300" /> },
+    { name: "Contact Us", to: "/contact", icon: <FiMail className="text-blue-300" /> },
+    { name: "About Us", to: "/about", icon: <FiInfo className="text-blue-300" /> },
   ];
 
   const containerVariants = {
@@ -110,7 +109,7 @@ function Header() {
                   >
                     <img
                       src="/hilift/Images/Hi-Lift_logo.png"
-                      alt="Hi-Lift Logo"
+                      alt="Logo"
                       className="h-8 w-auto drop-shadow-lg"
                     />
                   </NavLink>
@@ -118,7 +117,7 @@ function Header() {
                 <motion.button 
                   onClick={() => setSidebarOpen(false)} 
                   className="p-2 text-blue-200 hover:text-white rounded-full hover:bg-blue-700"
-                  whileHover={{ rotate: 90 }}
+                  whileHover={{ rotate: 90, scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   aria-label="Close menu"
                 >
@@ -128,7 +127,7 @@ function Header() {
               
               {/* Navigation */}
               <nav className="flex-1 overflow-y-auto mt-6">
-                <ul className="space-y-1">
+                <ul className="space-y-2">
                   {navItems.map((item) => (
                     <motion.li
                       key={item.to}
@@ -140,48 +139,41 @@ function Header() {
                       <Link
                         to={item.to}
                         onClick={() => setSidebarOpen(false)}
-                        className="flex items-center justify-between px-4 py-3 text-blue-100 hover:text-white hover:bg-blue-700 rounded-lg transition-all group"
+                        className="flex items-center justify-between px-4 py-3 text-blue-100 hover:text-white hover:bg-blue-700 rounded-lg transition-all group relative"
                       >
                         <div className="flex items-center space-x-3">
-                          <span className="text-lg opacity-80 group-hover:opacity-100">
+                          <motion.span 
+                            className="text-lg group-hover:scale-110 transition-transform"
+                            whileHover={{ rotate: 10 }}
+                          >
                             {item.icon}
-                          </span>
+                          </motion.span>
                           <span className="font-medium">{item.name}</span>
                         </div>
                         <motion.div
                           animate={{
-                            opacity: hoveredItem === item.to ? 1 : 0,
-                            x: hoveredItem === item.to ? 0 : -10
+                            opacity: hoveredItem === item.to ? 1 : 0.7,
+                            x: hoveredItem === item.to ? 0 : -5
                           }}
                           transition={{ type: 'spring', stiffness: 500 }}
                           className="text-blue-300"
                         >
                           <FiChevronRight />
                         </motion.div>
+                        {hoveredItem === item.to && (
+                          <motion.div 
+                            className="absolute inset-0 border-2 border-blue-400 rounded-lg pointer-events-none"
+                            layoutId="sidebarHover"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                          />
+                        )}
                       </Link>
                     </motion.li>
                   ))}
                 </ul>
-                
-                {/* Employee login */}
-                <div className="mt-8 pt-4 border-t border-blue-700">
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Link
-                      to="/employee/login"
-                      onClick={() => setSidebarOpen(false)}
-                      className="flex items-center justify-between px-4 py-3 bg-blue-700 text-white hover:bg-blue-600 rounded-lg transition-all shadow-md"
-                    >
-                      <div className="flex items-center space-x-3">
-                        <FiUser className="text-blue-200" />
-                        <span className="font-medium">Employee Login</span>
-                      </div>
-                      <FiLogIn className="text-blue-200" />
-                    </Link>
-                  </motion.div>
-                </div>
               </nav>
               
               {/* Footer */}
@@ -191,8 +183,20 @@ function Header() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
               >
+                <motion.div 
+                  className="flex justify-center mb-2"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <FiAward className="text-yellow-400 mr-2" />
+                  <FiShield className="text-green-400" />
+                </motion.div>
                 <p>Elevating your experience since 2023</p>
-                <p className="mt-1">© {new Date().getFullYear()} Hi-Lift Solutions</p>
+                <motion.p 
+                  className="mt-1"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  © {new Date().getFullYear()} All Rights Reserved
+                </motion.p>
               </motion.div>
             </div>
           </motion.div>
@@ -225,7 +229,7 @@ function Header() {
             >
               <motion.img
                 src="/hilift/Images/Hi-Lift_logo.png"
-                alt="Hi-Lift Logo"
+                alt="Logo"
                 className="h-6 w-auto md:h-10 drop-shadow-sm dark:drop-shadow-accent"
                 whileHover={{ scale: 1.1 }}
               />
@@ -260,6 +264,12 @@ function Header() {
                     }`
                   }
                 >
+                  <motion.span 
+                    className="mr-2"
+                    whileHover={{ rotate: 10 }}
+                  >
+                    {item.icon}
+                  </motion.span>
                   {item.name}
                   {hoveredItem === item.to && (
                     <motion.span 
@@ -281,16 +291,12 @@ function Header() {
             className="flex justify-end p-4 md:hidden"
             aria-label={sidebarOpen ? "Close menu" : "Open menu"}
           >
-            {sidebarOpen ? (
-              <FiX size={24} />
-            ) : (
-              <FiMenu size={24} />
-            )}
+            {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </motion.button>
         </div>
       </motion.header>
       
-      {/* Sidebar Overlay - Moved outside the Sidebar component */}
+      {/* Sidebar Overlay */}
       <AnimatePresence>
         {sidebarOpen && (
           <motion.div

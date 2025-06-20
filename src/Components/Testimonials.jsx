@@ -32,7 +32,7 @@ function Testimonials() {
       quote: "Hi-Lift's AMC saved us 30% on maintenance costs while improving reliability. Their team is always responsive and professional.",
       rating: 5,
       highlight: "Cost Savings",
-      image: "/images/testimonials/client1.jpg"
+      image: "/hilift/Images/Testimonial/Rahul.jpg"
     },
     {
       id: 2,
@@ -41,7 +41,7 @@ function Testimonials() {
       quote: "Their 24/7 emergency service is a lifesaver for our critical care elevators. We've had zero downtime since switching to Hi-Lift.",
       rating: 5,
       highlight: "Zero Downtime",
-      image: "/images/testimonials/client2.jpg"
+      image: "/hilift/Images/Testimonial/Priya.jpg"
     },
     {
       id: 3,
@@ -50,25 +50,7 @@ function Testimonials() {
       quote: "The IoT monitoring system predicts issues before they occur - revolutionary! Our customer complaints have reduced by 40%.",
       rating: 4,
       highlight: "Smart Technology",
-      image: "/images/testimonials/client3.jpg"
-    },
-    {
-      id: 4,
-      name: "Ananya Reddy",
-      role: "Hotel General Manager",
-      quote: "The modernization services transformed our 20-year-old elevators to feel brand new. Guests constantly compliment the smooth rides now.",
-      rating: 5,
-      highlight: "Modernization",
-      image: "/images/testimonials/client4.jpg"
-    },
-    {
-      id: 5,
-      name: "Sanjay Kapoor",
-      role: "Office Building Owner",
-      quote: "Their transparent pricing and detailed service reports give me complete confidence in their work. No hidden charges ever.",
-      rating: 5,
-      highlight: "Transparency",
-      image: "/images/testimonials/client5.jpg"
+      image: "/hilift/Images/Testimonial/VIkram.jpg"
     }
   ];
 
