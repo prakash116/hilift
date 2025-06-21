@@ -13,10 +13,10 @@ import OurNetwork from "./Components/OurNetwork";
 import ContactUs from "./Components/Pages/Contact";
 import AboutUs from "./Components/Pages/AboutUs";
 import LandingPage from "./Components/Pages/LandingPage";
-import ElevatorGallery from "./Components/Pages/Gallery";
 import { Routes, Route, useLocation, HashRouter } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import FloatingPhoneIcon from "./Components/FloatingPhoneIcon ";
+import ExploreServices from "./Components/ExploreServices";
 
 // Scroll to top component
 function ScrollToTop() {
@@ -176,14 +176,14 @@ function App() {
                   <OurNetwork />
                 </motion.div>
               } />
-              <Route path="/gallery" element={
+              <Route path="/explore-services" element={
                 <motion.div
-                  key="gallery-page"
+                  key="explore-service"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.7 }}
                 >
-                  <ElevatorGallery />
+                  <ExploreServices />
                 </motion.div>
               } />
             </Routes>
@@ -225,6 +225,7 @@ function App() {
         }}
       />
     </div>
+    
   );
 }
 

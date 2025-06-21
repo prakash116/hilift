@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiChevronLeft, FiChevronRight, FiX, FiStar } from 'react-icons/fi';
 
 // Animation variants
 const staggerContainer = {
@@ -21,6 +21,32 @@ const fadeIn = {
 const scaleUp = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+};
+
+const modalVariants = {
+  hidden: { 
+    opacity: 0,
+    scale: 0.8,
+    y: 20
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      damping: 25,
+      stiffness: 500
+    }
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.9,
+    y: 10,
+    transition: {
+      duration: 0.2
+    }
+  }
 };
 
 function Testimonials() {
@@ -55,13 +81,17 @@ function Testimonials() {
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
-  
-  // For desktop, we'll show 3 testimonials, for tablet 2, and for mobile 1 in carousel
-  const itemsPerPage = {
-    desktop: 3,
-    tablet: 2,
-    mobile: 1
-  };
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    role: '',
+    quote: '',
+    rating: 0,
+    hoverRating: 0,
+    isSubmitting: false,
+    submitSuccess: false
+  });
 
   const nextTestimonial = () => {
     setActiveIndex((prevIndex) => 
@@ -75,21 +105,79 @@ function Testimonials() {
     );
   };
 
-  // Star rating component
-  const StarRating = ({ rating }) => (
-    <div className="flex mb-2">
-      {[...Array(5)].map((_, i) => (
-        <svg
-          key={i}
-          className={`w-4 h-4 md:w-5 md:h-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
+  const StarRating = ({ rating, interactive = false, onRate, onHover, onLeave }) => (
+    <div className="flex">
+      {[...Array(5)].map((_, i) => {
+        const ratingValue = i + 1;
+        return (
+          <label key={i} className="cursor-pointer">
+            <input
+              type="radio"
+              name="rating"
+              value={ratingValue}
+              onClick={() => interactive && onRate(ratingValue)}
+              className="hidden"
+            />
+            <FiStar
+              className={`w-6 h-6 ${interactive ? 'cursor-pointer' : ''} ${
+                ratingValue <= (formData.hoverRating || formData.rating)
+                  ? 'text-yellow-400 fill-current'
+                  : 'text-gray-300'
+              }`}
+              onMouseEnter={() => interactive && onHover(ratingValue)}
+              onMouseLeave={() => interactive && onLeave()}
+            />
+          </label>
+        );
+      })}
     </div>
   );
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleRatingClick = (rating) => {
+    setFormData(prev => ({ ...prev, rating }));
+  };
+
+  const handleRatingHover = (rating) => {
+    setFormData(prev => ({ ...prev, hoverRating: rating }));
+  };
+
+  const handleRatingLeave = () => {
+    setFormData(prev => ({ ...prev, hoverRating: 0 }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormData(prev => ({ ...prev, isSubmitting: true }));
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setFormData(prev => ({
+      ...prev,
+      isSubmitting: false,
+      submitSuccess: true
+    }));
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setIsFormOpen(false);
+      setFormData({
+        name: '',
+        email: '',
+        role: '',
+        quote: '',
+        rating: 0,
+        hoverRating: 0,
+        isSubmitting: false,
+        submitSuccess: false
+      });
+    }, 3000);
+  };
 
   return (
     <section className="py-12 md:py-16 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
@@ -123,7 +211,7 @@ function Testimonials() {
 
         {/* Desktop/Tablet Grid View (hidden on mobile) */}
         <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.slice(0, itemsPerPage.desktop).map((testimonial, i) => (
+          {testimonials.slice(0, 3).map((testimonial, i) => (
             <motion.div
               key={testimonial.id}
               initial="hidden"
@@ -301,12 +389,172 @@ function Testimonials() {
           transition={{ delay: 0.6 }}
           className="mt-12 text-center"
         >
-          <button className="px-8 py-3 bg-blue-600 text-white font-medium rounded-full shadow-lg hover:bg-blue-700 transition-colors hover:shadow-xl transform hover:-translate-y-1">
-            Share Your Experience
-          </button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsFormOpen(true)}
+            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
+          >
+            <span className="relative z-10 flex items-center justify-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+              Share Your Experience
+            </span>
+            <span className="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span className="absolute inset-0 rounded-full border-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+          </motion.button>
           <p className="mt-3 text-xs text-gray-500">Join our growing list of satisfied clients</p>
         </motion.div>
       </div>
+
+      {/* Testimonial Form Modal */}
+      <AnimatePresence>
+        {isFormOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={modalVariants}
+              className="bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto relative"
+            >
+              <button
+                onClick={() => setIsFormOpen(false)}
+                className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100 text-gray-500"
+              >
+                <FiX className="w-6 h-6" />
+              </button>
+
+              {formData.submitSuccess ? (
+                <div className="p-8 text-center">
+                  <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Thank You!</h3>
+                  <p className="text-gray-600">
+                    Your testimonial has been submitted. We appreciate your feedback!
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="p-6">
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900">Share Your Experience</h3>
+                    <p className="text-gray-600 mt-2">We'd love to hear your feedback</p>
+                  </div>
+
+                  <div className="space-y-5">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                        Your Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Enter your name"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        Email <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Enter your email"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+                        Your Role/Position
+                      </label>
+                      <input
+                        type="text"
+                        id="role"
+                        name="role"
+                        value={formData.role}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="E.g. Apartment Owner, Facility Manager"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Your Rating <span className="text-red-500">*</span>
+                      </label>
+                      <div className="flex items-center">
+                        <StarRating 
+                          rating={formData.rating}
+                          interactive={true}
+                          onRate={handleRatingClick}
+                          onHover={handleRatingHover}
+                          onLeave={handleRatingLeave}
+                        />
+                        <span className="ml-2 text-sm text-gray-500">
+                          {formData.rating > 0 ? `${formData.rating} star${formData.rating !== 1 ? 's' : ''}` : 'Select stars'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="quote" className="block text-sm font-medium text-gray-700 mb-1">
+                        Your Experience <span className="text-red-500">*</span>
+                      </label>
+                      <textarea
+                        id="quote"
+                        name="quote"
+                        value={formData.quote}
+                        onChange={handleInputChange}
+                        required
+                        rows="4"
+                        className="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Tell us about your experience with Hi-Lift..."
+                      ></textarea>
+                    </div>
+
+                    <div className="pt-2">
+                      <button
+                        type="submit"
+                        disabled={formData.isSubmitting}
+                        className={`w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors ${
+                          formData.isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                        }`}
+                      >
+                        {formData.isSubmitting ? (
+                          <span className="flex items-center justify-center">
+                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Submitting...
+                          </span>
+                        ) : (
+                          'Submit Testimonial'
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

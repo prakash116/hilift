@@ -1,14 +1,9 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  FiArrowRight,
-  FiCheck,
-  FiPhone,
-  FiMail,
-} from "react-icons/fi";
+import { FiArrowRight, FiCheck, FiPhone, FiMail } from "react-icons/fi";
 import Testimonials from "../Testimonials";
 import StatsSection from "../StatesSections";
-
+import CTA from "../CTA";
+import HeroSection from "../HeroSection";
 const LandingPage = () => {
   // Data
   const features = [
@@ -51,81 +46,7 @@ const LandingPage = () => {
   return (
     <div className="bg-gray-50">
       {/* --- Hero Section --- */}
-      <section className="relative bg-gradient-to-r from-blue-900 to-blue-700 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('/Images/elevator-pattern.svg')] bg-repeat opacity-20"></div>
-        </div>
-
-        <div className="container mx-auto px-6 py-24 md:py-10 flex flex-col md:flex-row items-center">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="md:w-1/2 mb-12 md:mb-0"
-          >
-            <motion.h1
-              variants={fadeIn}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
-            >
-              Elevate Your Building's{" "}
-              <span className="text-yellow-300">Performance</span>
-            </motion.h1>
-            <motion.p variants={fadeIn} className="text-xl mb-8 opacity-90">
-              India's most trusted elevator solutions with IoT-enabled smart
-              maintenance
-            </motion.p>
-            <motion.div
-              variants={fadeIn}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <button className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-bold px-8 py-3 rounded-lg shadow-lg transition-all transform hover:-translate-y-1">
-                Get Free Consultation
-              </button>
-              <button className="border-2 border-white hover:bg-white hover:text-blue-900 font-medium px-8 py-3 rounded-lg transition-all">
-                Explore Services <FiArrowRight className="inline ml-2" />
-              </button>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 }}
-            className="md:w-1/2 relative"
-          >
-            <img
-              src="/hilift/Images/1342.jpg"
-              alt="Modern Elevator"
-              className="w-full max-w-lg mx-auto rounded-lg shadow-2xl border-8 border-white transform"
-            />
-            <motion.div
-              animate={{
-                y: [0, -10, 0],
-                transition: {
-                  repeat: Infinity,
-                  duration: 3,
-                  ease: "easeInOut",
-                },
-              }}
-              className="absolute -bottom-6 -right-6 bg-white text-blue-900 p-4 rounded-lg shadow-lg border-l-4 border-yellow-400 hidden md:block"
-            >
-              <div className="text-2xl font-bold">24/7</div>
-              <div className="text-sm">Emergency Support</div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Animated floating elements */}
-        <motion.div
-          animate={{
-            x: [0, 10, 0],
-            transition: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-          }}
-          className="absolute top-1/4 left-10 opacity-30 hidden lg:block"
-        >
-          <div className="w-16 h-16 rounded-full bg-yellow-400 blur-xl"></div>
-        </motion.div>
-      </section>
+      <HeroSection/>
 
       {/* --- Features --- */}
       <section className="py-10 px-10 bg-gray-50">
@@ -304,47 +225,11 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <Testimonials/>
-      <StatsSection/>
+      <Testimonials />
+      <StatsSection />
 
       {/* --- CTA --- */}
-      <section className="py-20 bg-blue-600 text-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold mb-6"
-            >
-              Ready to Elevate Your Property?
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-xl mb-8 max-w-2xl mx-auto"
-            >
-              Get a free consultation with our elevator experts today.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <button className="bg-white text-blue-900 hover:bg-gray-100 font-bold px-8 py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-1">
-                <FiPhone className="inline mr-2" /> Call Now: 1800-123-4567
-              </button>
-              <button className="border-2 border-white hover:bg-blue-700 font-medium px-8 py-4 rounded-lg transition-all">
-                <FiMail className="inline mr-2" /> Email Us
-              </button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <CTA />
     </div>
   );
 };
