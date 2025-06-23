@@ -17,6 +17,7 @@ import { Routes, Route, useLocation, HashRouter } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import FloatingPhoneIcon from "./Components/FloatingPhoneIcon ";
 import ExploreServices from "./Components/ExploreServices";
+import PremiumElevators from "./Components/PremiumElevators";
 
 // Scroll to top component
 function ScrollToTop() {
@@ -224,6 +225,7 @@ function App() {
           duration: 4000,
         }}
       />
+      <PremiumElevators/>
     </div>
     
   );

@@ -12,7 +12,16 @@ function TechnicalSupport() {
         </svg>
       ),
       color: "text-blue-600",
-      bgColor: "bg-blue-50"
+      bgColor: "bg-blue-50",
+      animation: {
+        rotate: [0, 5, -5, 0],
+        transition: {
+          repeat: Infinity,
+          repeatType: "reverse",
+          duration: 4,
+          ease: "easeInOut"
+        }
+      }
     },
     {
       title: "Professional Service",
@@ -23,7 +32,16 @@ function TechnicalSupport() {
         </svg>
       ),
       color: "text-green-600",
-      bgColor: "bg-green-50"
+      bgColor: "bg-green-50",
+      animation: {
+        y: [0, -5, 0],
+        transition: {
+          repeat: Infinity,
+          repeatType: "reverse",
+          duration: 3,
+          ease: "easeInOut"
+        }
+      }
     },
     {
       title: "Highly Recommended",
@@ -34,7 +52,16 @@ function TechnicalSupport() {
         </svg>
       ),
       color: "text-yellow-600",
-      bgColor: "bg-yellow-50"
+      bgColor: "bg-yellow-50",
+      animation: {
+        scale: [1, 1.05, 1],
+        transition: {
+          repeat: Infinity,
+          repeatType: "reverse",
+          duration: 3.5,
+          ease: "easeInOut"
+        }
+      }
     },
     {
       title: "Positive Reviews",
@@ -45,7 +72,16 @@ function TechnicalSupport() {
         </svg>
       ),
       color: "text-purple-600",
-      bgColor: "bg-purple-50"
+      bgColor: "bg-purple-50",
+      animation: {
+        rotate: [0, 3, -3, 0],
+        transition: {
+          repeat: Infinity,
+          repeatType: "reverse",
+          duration: 5,
+          ease: "easeInOut"
+        }
+      }
     },
     {
       title: "Fast Response",
@@ -56,7 +92,16 @@ function TechnicalSupport() {
         </svg>
       ),
       color: "text-red-600",
-      bgColor: "bg-red-50"
+      bgColor: "bg-red-50",
+      animation: {
+        x: [0, 3, -3, 0],
+        transition: {
+          repeat: Infinity,
+          repeatType: "reverse",
+          duration: 4,
+          ease: "easeInOut"
+        }
+      }
     }
   ];
 
@@ -96,7 +141,7 @@ function TechnicalSupport() {
 
   return (
     <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
-      {/* Decorative elements */}
+      {/* Floating decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10">
         <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-blue-400 filter blur-3xl"></div>
         <div className="absolute bottom-10 right-10 w-48 h-48 rounded-full bg-blue-300 filter blur-3xl"></div>
@@ -129,54 +174,42 @@ function TechnicalSupport() {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6"
         >
           {supportItems.map((item, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
               whileHover="hover"
-              className={`${item.bgColor} p-6 rounded-xl shadow-lg flex flex-col items-center text-center border border-transparent hover:border-gray-200 transition-all`}
+              className={`${item.bgColor} p-4 sm:p-6 rounded-xl shadow-lg flex flex-col items-center text-center border border-transparent hover:border-gray-200 transition-all`}
             >
               <motion.div
-                animate={{
-                  rotate: [0, 5, -5, 0],
-                  transition: {
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    duration: 4 + index,
-                    ease: "easeInOut"
-                  }
-                }}
-                className={`${item.color} mb-5 p-3 rounded-full bg-white shadow-sm`}
+                animate={item.animation}
+                className={`${item.color} mb-3 sm:mb-5 p-2 sm:p-3 rounded-full bg-white shadow-sm`}
               >
                 {item.icon}
               </motion.div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">{item.title}</h3>
-              <p className="text-gray-600 text-sm sm:text-base">{item.description}</p>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-1 sm:mb-2">{item.title}</h3>
+              <p className="text-sm sm:text-base text-gray-600">{item.description}</p>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Floating CTA */}
+        {/* Creative floating elements */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-16 text-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition-all"
-          >
-            Contact Our Support Team
-            <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 -mr-1 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-            </svg>
-          </motion.button>
-        </motion.div>
+          transition={{ delay: 0.8 }}
+          className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-blue-200 opacity-20 filter blur-xl"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1 }}
+          className="absolute -top-10 right-0 w-32 h-32 rounded-full bg-yellow-200 opacity-20 filter blur-xl"
+        />
       </div>
     </div>
   );

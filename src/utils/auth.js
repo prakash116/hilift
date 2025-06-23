@@ -273,3 +273,66 @@
       },
     ],
   };
+
+const liftServices = [
+  {
+    id: 1,
+    title: "Basic Lift Repair",
+    description: "Troubleshooting and fixing minor lift issues including door problems, button malfunctions, and minor electrical faults.",
+    coverage: "Single-time service",
+    benefits: ["24/7 support", "Genuine parts", "Expert technicians"],
+    priceRange: "₹5,000 - ₹15,000",
+    icon: "🔧",
+    color: "bg-red-100 text-red-800"
+  },
+  {
+    id: 2,
+    title: "Comprehensive Lift Repair",
+    description: "Complete overhaul and repair of major lift components including motor, control system, and mechanical parts.",
+    coverage: "Single-time service with 30-day warranty",
+    benefits: ["Detailed inspection report", "Safety certification", "Priority service"],
+    priceRange: "₹20,000 - ₹50,000",
+    icon: "🛠️",
+    color: "bg-orange-100 text-orange-800"
+  },
+  {
+    id: 3,
+    title: "Emergency Lift Repair",
+    description: "Immediate response for stuck lifts or critical failures with guaranteed 2-hour response time in metro cities.",
+    coverage: "24/7 emergency service",
+    benefits: ["Fastest response", "Trained rescue team", "Temporary fixes included"],
+    priceRange: "₹15,000 - ₹35,000",
+    icon: "🚨",
+    color: "bg-yellow-100 text-yellow-800"
+  },
+  {
+    id: 4,
+    title: "Silver AMC Plan",
+    description: "Annual Maintenance Contract with quarterly inspections and basic repairs included.",
+    coverage: "All India coverage",
+    benefits: ["4 inspections/year", "Basic repairs included", "Discount on parts"],
+    priceRange: "₹25,000 - ₹40,000/year",
+    icon: "🥈",
+    color: "bg-gray-100 text-gray-800"
+  },
+  {
+    id: 5,
+    title: "Gold AMC Plan",
+    description: "Premium maintenance contract with monthly inspections and comprehensive coverage.",
+    coverage: "Pan-India with 24-hour response",
+    benefits: ["12 inspections/year", "All repairs included", "Emergency support", "Free modernization consultation"],
+    priceRange: "₹50,000 - ₹80,000/year",
+    icon: "🥇",
+    color: "bg-amber-100 text-amber-800"
+  },
+  {
+    id: 6,
+    title: "Platinum AMC Plan",
+    description: "Elite maintenance package with bi-monthly inspections and complete system coverage.",
+    coverage: "Nationwide with 2-hour emergency response",
+    benefits: ["24 inspections/year", "Full system coverage", "Dedicated account manager", "Advanced predictive maintenance"],
+    priceRange: "₹1,00,000 - ₹1,50,000/year",
+    icon: "💎",
+    color: "bg-blue-100 text-blue-800"
+  },
+];

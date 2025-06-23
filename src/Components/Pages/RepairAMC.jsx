@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const liftServices = [
   {
@@ -67,12 +67,23 @@ const liftServices = [
 const RepairAMC = () => {
   const [activeTab, setActiveTab] = useState("repair");
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredServices = liftServices.filter((service) =>
     activeTab === "repair"
       ? service.title.includes("Repair")
       : service.title.includes("AMC")
   );
+
+  const openModal = (service) => {
+    setSelectedService(service);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100 py-8 sm:py-12 px-4 overflow-x-hidden">
@@ -122,7 +133,7 @@ const RepairAMC = () => {
           </div>
         </motion.div>
 
-        {/* Services Grid - Now with proper responsive behavior */}
+        {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-2 sm:px-0">
           {filteredServices.map((service) => (
             <motion.div
@@ -179,11 +190,12 @@ const RepairAMC = () => {
                     </ul>
                   </div>
                   
-                  {/* Button - Perfectly aligned at bottom */}
+                  {/* Button */}
                   <div className="mt-4">
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      onClick={() => openModal(service)}
                       className="w-full px-3 py-2 text-xs sm:text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-all duration-200 flex items-center justify-center"
                     >
                       Get this plan
@@ -198,6 +210,131 @@ const RepairAMC = () => {
           ))}
         </div>
       </div>
+
+      {/* Modal/Popup */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="relative bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <svg className="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              <div className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className={`text-3xl p-3 rounded-lg ${selectedService?.color} bg-opacity-30 mr-4`}>
+                    {selectedService?.icon}
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-900">{selectedService?.title}</h2>
+                    <p className="text-sm font-medium text-blue-600">{selectedService?.priceRange}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Description</h3>
+                    <p className="mt-1 text-sm text-gray-600">{selectedService?.description}</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Coverage</h3>
+                    <p className="mt-1 text-sm text-gray-600">{selectedService?.coverage}</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Benefits</h3>
+                    <ul className="mt-2 space-y-2">
+                      {selectedService?.benefits.map((benefit, index) => (
+                        <li key={index} className="flex items-start">
+                          <svg className="flex-shrink-0 h-5 w-5 text-green-500 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          <span className="ml-2 text-sm text-gray-700">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-6 space-y-4">
+                  <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Contact Information</h3>
+                  <form className="space-y-3">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        className="mt-1 block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                        placeholder="Your name"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        className="mt-1 block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                        placeholder="your@email.com"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        className="mt-1 block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                        placeholder="+91 9876543210"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message (Optional)</label>
+                      <textarea
+                        id="message"
+                        rows={3}
+                        className="mt-1 text-black block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                        placeholder="Any specific requirements..."
+                      />
+                    </div>
+                  </form>
+                </div>
+
+                <div className="mt-6 flex justify-end space-x-3">
+                  <button
+                    onClick={closeModal}
+                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={closeModal}
+                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Submit Request
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

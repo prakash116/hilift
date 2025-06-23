@@ -4,6 +4,53 @@ import LiftEnquiry from "../LiftEnquiry";
 
 const Elevator = () => {
   const [expandedCard, setExpandedCard] = useState(null);
+  const [showQuoteForm, setShowQuoteForm] = useState(false);
+  const [selectedLift, setSelectedLift] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    liftModel: ""
+  });
+
+  const handleGetQuote = (liftType) => {
+    setSelectedLift(liftType);
+    setShowQuoteForm(true);
+    setFormData(prev => ({
+      ...prev,
+      liftModel: liftType.name
+    }));
+  };
+
+  const closeQuoteForm = () => {
+    setShowQuoteForm(false);
+    setTimeout(() => setSelectedLift(null), 300);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you would typically send the form data to your backend
+    console.log("Form submitted:", formData);
+    // Close the form after submission
+    closeQuoteForm();
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      liftModel: ""
+    });
+  };
 
   const LiftTypesArray = [
     {
@@ -180,7 +227,7 @@ const Elevator = () => {
       ],
     },
   ];
-  
+
   const toggleExpand = (id) => {
     setExpandedCard(expandedCard === id ? null : id);
   };
@@ -222,8 +269,19 @@ const Elevator = () => {
     },
   };
 
+  const formItemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen py-8">
+    <div className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen py-8 relative">
       <div className="w-[95%] mx-auto px-4 pb-5 md:pb-10">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -455,11 +513,33 @@ const Elevator = () => {
                         : "View Details"}
                     </motion.button>
                     <motion.button
-                      whileHover={{ scale: 1.05, backgroundColor: "#1d4ed8" }}
+                      whileHover={{ 
+                        scale: 1.05, 
+                        backgroundColor: "#1d4ed8",
+                        boxShadow: "0 5px 15px rgba(29, 78, 216, 0.4)"
+                      }}
                       whileTap={{ scale: 0.95 }}
-                      className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                      onClick={() => handleGetQuote(liftType)}
+                      className="px-6 py-2 bg-blue-600 text-white rounded-lg transition-all 
+                                relative overflow-hidden group"
                     >
-                      Get Quote
+                      <span className="relative z-10 flex items-center">
+                        Get Quote
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <span className="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-100 
+                                    transition-opacity duration-300 rounded-lg"></span>
                     </motion.button>
                   </motion.div>
                 </div>
@@ -469,6 +549,196 @@ const Elevator = () => {
         </motion.div>
       </div>
       <LiftEnquiry/>
+
+      {/* Quote Form Popup */}
+      <AnimatePresence>
+        {showQuoteForm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            onClick={closeQuoteForm}
+          >
+            <motion.div
+              initial={{ scale: 0.8, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 50 }}
+              transition={{ type: "spring", damping: 25 }}
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full 
+                        max-h-[90vh] overflow-y-auto relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={closeQuoteForm}
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 
+                          dark:hover:bg-gray-700 transition-colors"
+                aria-label="Close"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-gray-500 dark:text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              <div className="p-6">
+                <motion.h2 
+                  className="text-2xl font-bold mb-2"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  Request a Quote
+                </motion.h2>
+                <motion.p 
+                  className="text-gray-600 dark:text-gray-300 mb-6"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  For {selectedLift?.name}
+                </motion.p>
+
+                <form onSubmit={handleSubmit}>
+                  <motion.div
+                    variants={formItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: 0.3 }}
+                    className="mb-4"
+                  >
+                    <label htmlFor="name" className="block mb-2 font-medium">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                                focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700"
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    variants={formItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: 0.35 }}
+                    className="mb-4"
+                  >
+                    <label htmlFor="email" className="block mb-2 font-medium">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                                focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700"
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    variants={formItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: 0.4 }}
+                    className="mb-4"
+                  >
+                    <label htmlFor="phone" className="block mb-2 font-medium">
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                                focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700"
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    variants={formItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: 0.45 }}
+                    className="mb-4"
+                  >
+                    <label htmlFor="liftModel" className="block mb-2 font-medium">
+                      Elevator Model
+                    </label>
+                    <input
+                      type="text"
+                      id="liftModel"
+                      name="liftModel"
+                      value={formData.liftModel}
+                      onChange={handleInputChange}
+                      readOnly
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                                bg-gray-100 dark:bg-gray-600 cursor-not-allowed"
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    variants={formItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: 0.5 }}
+                    className="mb-6"
+                  >
+                    <label htmlFor="message" className="block mb-2 font-medium">
+                      Additional Details
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows="4"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                                focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700"
+                    ></textarea>
+                  </motion.div>
+
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg 
+                              transition-colors shadow-lg"
+                    variants={formItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: 0.55 }}
+                  >
+                    Submit Request
+                  </motion.button>
+                </form>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

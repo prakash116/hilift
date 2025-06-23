@@ -120,8 +120,8 @@ function Testimonials() {
             />
             <FiStar
               className={`w-6 h-6 ${interactive ? 'cursor-pointer' : ''} ${
-                ratingValue <= (formData.hoverRating || formData.rating)
-                  ? 'text-yellow-400 fill-current'
+                ratingValue <= rating
+                  ? 'text-yellow-400 fill-yellow-400'
                   : 'text-gray-300'
               }`}
               onMouseEnter={() => interactive && onHover(ratingValue)}
@@ -499,7 +499,7 @@ function Testimonials() {
                       </label>
                       <div className="flex items-center">
                         <StarRating 
-                          rating={formData.rating}
+                          rating={formData.hoverRating || formData.rating}
                           interactive={true}
                           onRate={handleRatingClick}
                           onHover={handleRatingHover}
@@ -530,9 +530,9 @@ function Testimonials() {
                     <div className="pt-2">
                       <button
                         type="submit"
-                        disabled={formData.isSubmitting}
+                        disabled={formData.isSubmitting || formData.rating === 0}
                         className={`w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors ${
-                          formData.isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                          formData.isSubmitting || formData.rating === 0 ? 'opacity-70 cursor-not-allowed' : ''
                         }`}
                       >
                         {formData.isSubmitting ? (

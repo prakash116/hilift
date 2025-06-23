@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiArrowRight, FiX, FiCalendar, FiUser, FiPhone, FiMail, FiChevronDown } from 'react-icons/fi';
+import { FiArrowRight, FiX, FiUser, FiPhone, FiMail, FiChevronDown } from 'react-icons/fi';
 import { FaBuilding, FaHardHat, FaHome } from 'react-icons/fa';
 import { GiElevator } from 'react-icons/gi';
 import { useNavigate } from 'react-router-dom';
@@ -194,16 +194,16 @@ function HeroSection() {
         </motion.div>
       </section>
 
-      {/* Enhanced Creative Popup */}
+      {/* Enhanced Responsive Popup */}
       <AnimatePresence>
         {showPopup && (
-          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-start justify-center p-4 z-50 backdrop-blur-sm overflow-y-auto">
             <motion.div
               variants={popupVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-lg relative border-4 border-blue-500"
+              className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md md:max-w-lg lg:max-w-xl relative border-4 border-blue-500 my-8"
             >
               {/* Floating decorative elements */}
               <motion.div 
@@ -230,11 +230,11 @@ function HeroSection() {
                   <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
                 </div>
 
-                <div className="p-8">
-                  {/* Close button */}
+                <div className="p-6 sm:p-8">
+                  {/* Close button - positioned for better visibility */}
                   <button 
                     onClick={() => setShowPopup(false)}
-                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    className="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-100 transition-colors z-20"
                   >
                     <FiX className="text-gray-500 text-xl" />
                   </button>
@@ -264,7 +264,7 @@ function HeroSection() {
                       className="space-y-6"
                     >
                       <motion.div variants={itemVariants}>
-                        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-2">
                           Let's Elevate Your Project
                         </h2>
                         <p className="text-center text-gray-600 mb-6">
